@@ -30,4 +30,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'cognito' => [
+        'region' => env('COGNITO_REGION'),
+        'app_client_id' => env('COGNITO_APP_CLIENT_ID'),
+        'app_client_secret' => env('COGNITO_APP_CLIENT_SECRET'),
+        'user_pool_id' => env('COGNITO_USER_POOL_ID'),
+    ]
+
 ];
