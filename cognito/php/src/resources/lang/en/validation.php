@@ -153,6 +153,4 @@ return [
 
     'attributes' => [],
 
-    'cognito_user_unique' => '指定されたメールアドレスのユーザーは既に存在します',
-
 ];
