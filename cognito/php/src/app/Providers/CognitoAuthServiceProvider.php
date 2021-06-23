@@ -13,14 +13,15 @@ class CognitoAuthServiceProvider extends ServiceProvider
     {
         $this->app->singleton(CognitoClient::class, function (Application $app) {
             $config = [
-                'region'      => config('services.region'),
+                'region'      => config('services.cognito.region'),
+                'version'     => config('services.cognito.version'),
             ];
 
             return new CognitoClient(
                 new CognitoIdentityProviderClient($config),
-                config('services.app_client_id'),
-                config('services.app_client_secret'),
-                config('services.user_pool_id')
+                config('services.cognito.app_client_id'),
+                config('services.cognito.app_client_secret'),
+                config('services.cognito.user_pool_id')
             );
         });
 

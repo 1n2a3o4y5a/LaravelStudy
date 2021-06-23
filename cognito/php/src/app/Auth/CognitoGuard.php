@@ -31,4 +31,23 @@ class CognitoGuard extends SessionGuard implements StatefulGuard
         $this->request = $request;
         parent::__construct($name, $provider, $session, $request);
     }
+
+    /**
+     * register
+     * ユーザーを新規登録
+     */
+    public function register($email, $pass, $attributes = [])
+    {
+        $username = $this->client->register($email, $pass, $attributes);
+        return $username;
+    }
+
+    /**
+     * getCognitoUser
+     * メールアドレスからCognitoのユーザー名を取得
+     */
+    public function getCognitoUser($email)
+    {
+        return $this->client->getUser($email);
+    }
 }
