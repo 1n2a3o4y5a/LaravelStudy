@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CognitoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +19,6 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'cognito', 'as' => 'cognito.'], function() {
-    Route::get('/signup', function () { return view('cognito.signup'); })->name('index');
+    Route::get('/signup', function () { return view('cognito.signup'); })->name('signup');
+    Route::post('/signup', [CognitoController::class, 'signup']);
 });
