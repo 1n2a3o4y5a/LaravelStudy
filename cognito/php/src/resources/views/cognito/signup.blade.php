@@ -8,7 +8,7 @@
         <h1>Hello World!!!</h1>
         <form action="" method="POST">@csrf
             <input type="email" placeholder="email" name="email">
-            <input type="tel" placeholder="phone number" name="phone number">
+            <input type="tel" placeholder="phone number" name="phone_number">
             <input type="password" placeholder="password" name="password">
             <input type="submit" value="送信する">
         </form>

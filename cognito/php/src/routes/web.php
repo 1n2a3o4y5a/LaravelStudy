@@ -21,4 +21,5 @@ Route::get('/', function () {
 Route::group(['prefix' => 'cognito', 'as' => 'cognito.'], function() {
     Route::get('/signup', function () { return view('cognito.signup'); })->name('signup');
     Route::post('/signup', [CognitoController::class, 'signup']);
+    Route::get('/callback', [CognitoController::class, 'callback']);
 });

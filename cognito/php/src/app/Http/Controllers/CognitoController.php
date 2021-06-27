@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Cognito\CognitoClient;
 
 class CognitoController extends Controller
 {
@@ -13,6 +14,11 @@ class CognitoController extends Controller
      */
     public static function signup(Request $request) 
     {
-        return $request;
+        app()->make(CognitoClient::class)->register($request->email, $request->password, $request->phone_number);
+    }
+
+    public static function callback()
+    {
+        return view('cognito.verify');
     }
 }
