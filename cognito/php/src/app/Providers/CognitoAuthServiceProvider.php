@@ -21,7 +21,7 @@ class CognitoAuthServiceProvider extends ServiceProvider
             return new CognitoClient(
                 new CognitoIdentityProviderClient($config),
                 config('services.cognito.app_client_id'),
-                config('services.cognito.user_pool_id')
+                config('services.cognito.user_pool_id'),
             );
         });
     }

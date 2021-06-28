@@ -24,6 +24,7 @@ class CognitoClient
         $attributes['email'] = $email;
         $attributes['phone_number'] = $phoneNumber;
 
+        
         try {
             $response = $this->client->signUp([
                 'ClientId' => $this->clientId,
@@ -33,12 +34,37 @@ class CognitoClient
             ]);
 
         } catch (CognitoIdentityProviderException $e) {
-            Log::info("e", ['e' => $e]);
             throw $e;
         }
 
-        return;
+        $data = [
+            'email' => $email,
+            'phone_number' => $response['CodeDeliveryDetails']['Destination'],
+            'phone_number' => $phoneNumber,
+        ];
+
+        return $data;
+
     }
+
+    public function confirm($request)
+    { 
+        try {
+            $response = $this->client->ConfirmSignUp([
+                'ClientId' => $this->clientId,
+                // 'Password' => $password,
+                // 'UserAttributes' => $this->formatAttributes($attributes),
+                'ConfirmationCode' => $request->confirm,
+                'Username' => $request->email,
+            ]);
+
+        } catch (CognitoIdentityProviderException $e) {
+            throw $e;
+        }
+
+        return ;
+    }
+
 
     protected function formatAttributes(array $attributes)
     {

@@ -14,11 +14,22 @@ class CognitoController extends Controller
      */
     public static function signup(Request $request) 
     {
-        app()->make(CognitoClient::class)->register($request->email, $request->password, $request->phone_number);
+        $data = app()->make(CognitoClient::class)->register($request->email, $request->password, $request->phone_number);
+        return redirect()->route('cognito.confirm')->with('data', $data);
+    }
+
+    public static function confirmView(Request $request) 
+    {
+        return view('cognito.confirm')->with('data', $request->session()->get('data'));
+    }
+
+    public static function confirm(Request $request) 
+    {
+        $res = app()->make(CognitoClient::class)->confirm($request);
     }
 
     public static function callback()
     {
-        return view('cognito.verify');
+        return view('cognito.success');
     }
 }
