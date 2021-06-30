@@ -28,6 +28,16 @@ class CognitoController extends Controller
         $res = app()->make(CognitoClient::class)->confirm($request);
     }
 
+    public static function loginView(Request $request) 
+    {
+        return view('cognito.login');
+    }
+
+    public static function login(Request $request) 
+    {
+        $res = app()->make(CognitoClient::class)->authenticate($request);
+    }
+
     public static function callback()
     {
         return view('cognito.success');

@@ -65,6 +65,27 @@ class CognitoClient
         return ;
     }
 
+    public function authenticate($request)
+    {
+        
+        try {
+            $response = $this->client->adminInitiateAuth([
+                'AuthFlow'       => 'ADMIN_NO_SRP_AUTH',
+                'AuthParameters' => [
+                    'USERNAME'   => $request->email,
+                    'PASSWORD'   => $request->password,
+                ],
+                'ClientId'       => $this->clientId,
+                'UserPoolId'     => $this->poolId
+            ]);
+
+        } catch (CognitoIdentityProviderException $e) {
+            return false;
+        }
+
+        return $response;
+    }
+
 
     protected function formatAttributes(array $attributes)
     {
