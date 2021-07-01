@@ -52,8 +52,6 @@ class CognitoClient
         try {
             $response = $this->client->ConfirmSignUp([
                 'ClientId' => $this->clientId,
-                // 'Password' => $password,
-                // 'UserAttributes' => $this->formatAttributes($attributes),
                 'ConfirmationCode' => $request->confirm,
                 'Username' => $request->email,
             ]);
@@ -70,7 +68,7 @@ class CognitoClient
         
         try {
             $response = $this->client->adminInitiateAuth([
-                'AuthFlow'       => 'ADMIN_NO_SRP_AUTH',
+                'AuthFlow'       => 'ADMIN_USER_PASSWORD_AUTH',
                 'AuthParameters' => [
                     'USERNAME'   => $request->email,
                     'PASSWORD'   => $request->password,
@@ -80,7 +78,22 @@ class CognitoClient
             ]);
 
         } catch (CognitoIdentityProviderException $e) {
-            return false;
+            throw $e;
+        }
+
+        return $response;
+    }
+
+    public function logout($request)
+    {
+        
+        try {
+            $response = $this->client->globalSignOut([
+                'AccessToken' => $request->accessToken, 
+            ]);
+
+        } catch (CognitoIdentityProviderException $e) {
+            throw $e;
         }
 
         return $response;

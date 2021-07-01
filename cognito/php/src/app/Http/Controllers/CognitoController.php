@@ -20,6 +20,7 @@ class CognitoController extends Controller
 
     public static function confirmView(Request $request) 
     {
+        dd(session()->get('id'));
         return view('cognito.confirm')->with('data', $request->session()->get('data'));
     }
 
@@ -36,6 +37,12 @@ class CognitoController extends Controller
     public static function login(Request $request) 
     {
         $res = app()->make(CognitoClient::class)->authenticate($request);
+        dd($res);
+    }
+
+    public static function logout(Request $request) 
+    {
+        $res = app()->make(CognitoClient::class)->logout($request);
     }
 
     public static function callback()

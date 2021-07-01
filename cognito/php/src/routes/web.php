@@ -25,5 +25,6 @@ Route::group(['prefix' => 'cognito', 'as' => 'cognito.'], function() {
     Route::post('/confirm', [CognitoController::class, 'confirm']);
     Route::get('/login', [CognitoController::class, 'loginView'])->name('login');
     Route::post('/login', [CognitoController::class, 'login']);
+    Route::post('/logout', [CognitoController::class, 'logout'])->name('logout');
     Route::get('/callback', [CognitoController::class, 'callback']);
 });
