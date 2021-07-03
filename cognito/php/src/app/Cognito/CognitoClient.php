@@ -48,7 +48,7 @@ class CognitoClient
     }
 
     public function confirm($request)
-    { 
+    {
         try {
             $response = $this->client->ConfirmSignUp([
                 'ClientId' => $this->clientId,
