@@ -17,12 +17,12 @@ class Cognito
         $tokenEndpointPath = '/oauth2/authorize';
 
         $headers = array(
-            'Content-Type: application/x-www-form-urlencoded',
+            'Content-Type: application/x-amz-json-1.1',
             'X-Amz-Target:AWSCognitoIdentityProviderService.SignUp'
         );
 
         $post_data = array(
-            "client_id"    => $this->settings['app_client_id'],
+            "ClientId"    => $this->settings['app_client_id'],
             'Username' => $form['email'],
             'UserPoolId' => $this->settings['user_pool_id'],
             'Password' => $form['password'],
@@ -30,11 +30,11 @@ class Cognito
         );
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->settings['cognito_domain'] . $tokenEndpointPath);
+        curl_setopt($ch, CURLOPT_URL, $this->settings['cognito_domain']);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_data));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
         $html =  curl_exec($ch);
         $errno = curl_errno($ch);
         $error = curl_error($ch);
