@@ -38,3 +38,9 @@ $cognito = new Cognito();
 </body>
 
 </html>
+
+<script>
+// function post() {
+//     axios.post
+// }
+</script>
