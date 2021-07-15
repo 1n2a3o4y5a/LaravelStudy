@@ -30,19 +30,17 @@ class Cognito
             'UserAttributes' => $this->formatAttributes($attributes)
         );
 
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->settings['cognito_domain']);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
-        $response =  curl_exec($ch);
+        $response =  json_decode(curl_exec($ch), true);
         curl_close($ch);
-
-        $data = json_decode($response, true);
-        var_dump($data);
         
-        return ;
+        return $response;
     }
 
     public function confirm($form)
@@ -59,17 +57,17 @@ class Cognito
             'ConfirmationCode' => $form['confirmation_code'],
         );
 
+        var_dump($form);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->settings['cognito_domain']);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
-        $response =  curl_exec($ch);
+        $response =  json_decode(curl_exec($ch));
         curl_close($ch);
 
-        $data = json_decode($response, true);
-        var_dump($data);
+        return $response;
     }
 
     protected function formatAttributes(array $attributes)
