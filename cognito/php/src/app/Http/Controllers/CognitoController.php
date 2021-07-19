@@ -20,7 +20,6 @@ class CognitoController extends Controller
 
     public static function confirmView(Request $request) 
     {
-        dd(session()->get('id'));
         return view('cognito.confirm')->with('data', $request->session()->get('data'));
     }
 
