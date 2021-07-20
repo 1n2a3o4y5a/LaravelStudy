@@ -3,6 +3,9 @@ require './Cognito.php';
 
 $cognito = new Cognito();
 
+$res = $cognito->loginApi();
+var_dump($res);
+
 ?>
 
 

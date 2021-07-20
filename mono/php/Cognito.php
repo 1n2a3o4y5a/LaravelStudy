@@ -105,6 +105,34 @@ class Cognito
         // return $response;
     }
 
+    public function loginApi()
+    {
+        $headers = array(
+            'Content-Type: application/x-amz-json-1.1',
+        );
+
+        $postData = array(
+            'AuthFlow'       => 'ADMIN_USER_PASSWORD_AUTH',
+            "ClientId"    => $this->settings['app_client_id'],
+            'UserPoolId' => $this->settings['user_pool_id'],
+            'AuthParameters' => [
+                'USERNAME'   => '',
+                'PASSWORD'   => '',
+            ],
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://n99tws04jd.execute-api.ap-northeast-1.amazonaws.com/default/login');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+        $response =  json_decode(curl_exec($ch));
+        curl_close($ch);
+
+        return $response;
+    }
+
     protected function formatAttributes(array $attributes)
     {
         $userAttributes = [];
